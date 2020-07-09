@@ -8,6 +8,7 @@
         "start": "npm-run-all --parallel open:src",
         "open:src": "babel-node build.scripts/src.server.js",
         "localtunnel": "lt -h \"http://serverless.social\" -p 3000 ",
+        "lint": "esw webpack.config.* src build.scripts --color",
         "share": "npm-run-all --parallel open:src localtunnel",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
