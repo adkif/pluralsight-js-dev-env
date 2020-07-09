@@ -15,4 +15,4 @@ app.listen(port, err => {
     } else {
         open('http://localhost:' + port);
     }
-})
+});
