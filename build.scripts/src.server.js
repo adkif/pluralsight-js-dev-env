@@ -20,6 +20,7 @@ app.get('/', (req, res) => {
 
 app.listen(port, err => {
     if (err) {
+        // eslint-disable-next-line no-console
         console.log(err);
 
     } else {

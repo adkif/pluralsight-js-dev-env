@@ -5,12 +5,14 @@
     "main": "index.js",
     "scripts": {
         "prestart": "babel-node build.scripts/start.message.js",
-        "start": "npm-run-all --parallel open:src",
+        "start": "npm-run-all --parallel open:src lint:watch test:watch",
         "open:src": "babel-node build.scripts/src.server.js",
         "localtunnel": "lt -h \"http://serverless.social\" -p 3000 ",
+        "lint:watch": "npm run lint -- --watch",
         "lint": "esw webpack.config.* src build.scripts --color",
         "share": "npm-run-all --parallel open:src localtunnel",
-        "test": "mocha --reporter progress build.scripts/test.setup.js \"src/**/*.test.js\""
+        "test": "mocha --reporter progress build.scripts/test.setup.js \"src/**/*.test.js\"",
+        "test:watch": "npm run test -- --watch"
     },
     "repository": {
         "type": "git",
