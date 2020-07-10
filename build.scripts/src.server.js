@@ -18,6 +18,15 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../src/index.html'));
 });
 
+app.get('/users', (req, res) => {
+    res.json([
+        { "id": 1654654, "firstname": "bob", "lastname": "oyuba", "email": "boboy@gmail.com" },
+        { "id": 2658654, "firstname": "Tom", "lastname": "Norton", "email": "tomnor@gmail.com" },
+        { "id": 6654654, "firstname": "Tina", "lastname": "keysha", "email": "tinakeysh@gmail.com" },
+        { "id": 2365654, "firstname": "jimmy", "lastname": "kenya", "email": "jkenya@gmail.com" }
+    ]);
+});
+
 app.listen(port, err => {
     if (err) {
         // eslint-disable-next-line no-console
