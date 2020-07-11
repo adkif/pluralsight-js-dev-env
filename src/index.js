@@ -1,5 +1,5 @@
+import './index.css';
 import User from './api/user.api';
-import './index.css'
 User.getUsers().then(res => {
     let usersBody = "";
     res.forEach(user => {

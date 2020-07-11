@@ -1,12 +1,12 @@
-// import webpack from 'webpack';
+import webpack from 'webpack';
 import path from 'path';
-import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import WebpackMd5Hash from 'webpack-md5-hash';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 export default {
     devtool: 'source-map',
-    mode: 'development',
+    mode: 'production',
     entry: {
         vendor: path.resolve(__dirname, 'src/vendor'),
         main: path.resolve(__dirname, 'src/index')
@@ -18,7 +18,15 @@ export default {
         filename: '[name].[chunkhash].js'
     },
     plugins: [
+        new ExtractTextPlugin({
+            filename: '[name].[chunkhash].css',
+            allChunks: true
+        }),
         new WebpackMd5Hash(),
+        new webpack.LoaderOptionsPlugin({
+            minimize: true,
+            debug: true
+        }),
         new HtmlWebpackPlugin({
             template: 'src/index.html',
             minify: {
@@ -37,28 +45,21 @@ export default {
         })
     ],
     optimization: {
-        minimizer: [
-            new UglifyJsPlugin(),
-        ],
         splitChunks: {
-            cacheGroups: {
-                vendor: {
-                    name: 'vendor',
-                    chunks: chunk => chunk.name == 'main',
-                    reuseExistingChunk: true,
-                    priority: 1,
-                    test: module =>
-                        /[\\/]node_modules[\\/]/.test(module.context),
-                    minChunks: 1,
-                    minSize: 0,
-                },
-            },
-        },
+            chunks: 'all'
+        }
     },
     module: {
         rules: [
             { test: /\.js$/, exclude: /node_modules/, loaders: ['babel-loader'] },
-            { test: /\.css$/, loaders: ['style-loader', 'css-loader'] }
+            {
+                test: /\.css$/i,
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: "css-loader",
+                    publicPath: "dist/"
+                })
+            }
         ]
     }
 }
