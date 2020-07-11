@@ -6,29 +6,30 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 export default {
     devtool: 'source-map',
     mode: 'development',
-    entry: [
-        path.resolve(__dirname, 'src/index')
-    ],
+    entry: {
+        vendor: path.resolve(__dirname, 'src/vendor'),
+        main: path.resolve(__dirname, 'src/index')
+    },
     target: 'web',
     output: {
         path: path.resolve(__dirname, 'dist'),
         publicPath: '/',
-        filename: 'bundle.js'
+        filename: '[name].js'
     },
     plugins: [
         new HtmlWebpackPlugin({
             template: 'src/index.html',
             minify: {
-                removeComments:true,
-                collapseWhitespace:true,
-                removeRedundantAttributes:true,
-                useShortDoctype:true,
-                removeEmptyAttributes:true,
-                removeStyleLinkTypeAttributes:true,
-                keepClosingSlash:true,
-                minifyJS:true,
-                minifyCSS:true,
-                minifyURLs:true
+                removeComments: true,
+                collapseWhitespace: true,
+                removeRedundantAttributes: true,
+                useShortDoctype: true,
+                removeEmptyAttributes: true,
+                removeStyleLinkTypeAttributes: true,
+                keepClosingSlash: true,
+                minifyJS: true,
+                minifyCSS: true,
+                minifyURLs: true
             },
             inject: true
         })
@@ -37,6 +38,20 @@ export default {
         minimizer: [
             new UglifyJsPlugin(),
         ],
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    name: 'vendor',
+                    chunks: chunk => chunk.name == 'main',
+                    reuseExistingChunk: true,
+                    priority: 1,
+                    test: module =>
+                        /[\\/]node_modules[\\/]/.test(module.context),
+                    minChunks: 1,
+                    minSize: 0,
+                },
+            },
+        },
     },
     module: {
         rules: [
