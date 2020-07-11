@@ -1,7 +1,7 @@
 {
     "name": "pluralsight-js-dev-env",
     "version": "1.0.0",
-    "description": "Javascript development environment form pluralisight course with Cory house",
+    "description": "Javascript development environment form pluralsight course with Cory house",
     "main": "index.js",
     "scripts": {
         "prestart": "babel-node build.scripts/start.message.js",

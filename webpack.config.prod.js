@@ -1,6 +1,7 @@
 // import webpack from 'webpack';
 import path from 'path';
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 export default {
     devtool: 'source-map',
@@ -14,7 +15,24 @@ export default {
         publicPath: '/',
         filename: 'bundle.js'
     },
-    plugins: [],
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: 'src/index.html',
+            minify: {
+                removeComments:true,
+                collapseWhitespace:true,
+                removeRedundantAttributes:true,
+                useShortDoctype:true,
+                removeEmptyAttributes:true,
+                removeStyleLinkTypeAttributes:true,
+                keepClosingSlash:true,
+                minifyJS:true,
+                minifyCSS:true,
+                minifyURLs:true
+            },
+            inject: true
+        })
+    ],
     optimization: {
         minimizer: [
             new UglifyJsPlugin(),
