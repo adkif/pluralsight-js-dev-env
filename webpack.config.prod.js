@@ -1,5 +1,6 @@
-import webpack from 'webpack';
+// import webpack from 'webpack';
 import path from 'path';
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 
 export default {
     devtool: 'source-map',
@@ -13,14 +14,12 @@ export default {
         publicPath: '/',
         filename: 'bundle.js'
     },
-    plugins: [
-        new webpack.LoaderOptionsPlugin({
-            debug: true,
-            noInfo: false,
-        }),
-        new webpack.optimize.DedupePlugin(), // Eliminate duplicate package when generating bundle
-        new webpack.optimize.UglifyJsPlugin() // Minify JS
-    ],
+    plugins: [],
+    optimization: {
+        minimizer: [
+            new UglifyJsPlugin(),
+        ],
+    },
     module: {
         rules: [
             { test: /\.js$/, exclude: /node_modules/, loaders: ['babel-loader'] },
