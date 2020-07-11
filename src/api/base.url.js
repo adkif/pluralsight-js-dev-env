@@ -1,5 +1,5 @@
 const getBaseUrl = () => {
-    return getQueryStringParameterByName('useMockApi') ? 'http://localhost:3001/' : '/';
+    return getQueryStringParameterByName('userMockApi') ? 'http://localhost:3001/' : '/';
 }
 
 const getQueryStringParameterByName = (name, url) => {

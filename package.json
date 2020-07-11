@@ -19,7 +19,8 @@
         "clean-dist": "rimraf ./dist && mkdir dist",
         "prebuild": "npm-run-all clean-dist test lint",
         "build": "babel-node build.scripts/build.js",
-        "postbuild": "babel-node build.scripts/dist.server.js"
+        "postbuild": "babel-node build.scripts/dist.server.js",
+        "deploy": "surge ./dist"
     },
     "repository": {
         "type": "git",
