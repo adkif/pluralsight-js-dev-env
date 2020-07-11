@@ -1,6 +1,6 @@
-import getUsers from './api/user.api';
+import User from './api/user.api';
 import './index.css'
-getUsers().then(res => {
+User.getUsers().then(res => {
     let usersBody = "";
     res.forEach(user => {
         usersBody += `<tr>
@@ -12,4 +12,15 @@ getUsers().then(res => {
         </tr>`
     });
     global.document.getElementById('users').innerHTML = usersBody;
+    const deleteLinks = global.document.getElementsByClassName('deleteUser');
+    Array.from(deleteLinks, link => {
+        link.onclick = (event) => {
+            const element = event.target;
+            event.preventDefault();
+            User.delete(element.attributes['data-id'].value);
+            const row = element.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        }
+    })
+
 });
